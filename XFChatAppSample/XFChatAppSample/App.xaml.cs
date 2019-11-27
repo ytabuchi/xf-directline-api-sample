@@ -5,6 +5,8 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using XFChatAppSample.Views;
 using XFChatAppSample.ViewModels;
+using Microsoft.Bot.Connector.DirectLine;
+using XFChatAppSample.Services;
 
 namespace XFChatAppSample
 {
@@ -23,6 +25,9 @@ namespace XFChatAppSample
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterInstance<IDirectLineClient>(new DirectLineClient(Secrets.DirectLineApiKey));
+            containerRegistry.RegisterSingleton<IBotService, BotService>();
+
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
         }
