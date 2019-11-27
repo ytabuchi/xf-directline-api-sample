@@ -9,8 +9,16 @@
              ios:Page.UseSafeArea="True"
              mc:Ignorable="d">
     <StackLayout>
-        <Label HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand"
-               Text="{Binding Message}" />
+        <ListView VerticalOptions="FillAndExpand" ItemsSource="{Binding Messages}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Text}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <StackLayout Orientation="Horizontal">
+            <Entry HorizontalOptions="FillAndExpand" Text="{Binding InputMessage, Mode=TwoWay}" />
+            <Button Command="{Binding SendCommand}" Text="Send" />
+        </StackLayout>
     </StackLayout>
 </ContentPage>

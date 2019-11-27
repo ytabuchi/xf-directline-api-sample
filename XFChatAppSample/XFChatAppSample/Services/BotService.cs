@@ -9,37 +9,37 @@ namespace XFChatAppSample.Services
     {
         private static string BotUserName { get; } = "XFChatAppSample";
 
-        private IDirectLineClient DirectLineClient { get; }
+        private IDirectLineClient _directLineClient { get; }
 
         public BotService(IDirectLineClient directLineClient)
         {
-            this.DirectLineClient = directLineClient;
+            _directLineClient = directLineClient;
         }
 
-        //public async Task<(IEnumerable<Activity> messages, string watermark)> GetMessagesAsync(string conversationId, string watermark)
-        //{
-        //    var r = await this.DirectLineClient.Conversations.GetActivitiesAsync(
-        //        conversationId,
-        //        watermark);
-        //    return (r.Activities, r.Watermark);
-        //}
+        public async Task<(IEnumerable<Activity> messages, string watermark)> GetMessagesAsync(string conversationId, string watermark)
+        {
+            var r = await _directLineClient.Conversations.GetActivitiesAsync(
+                conversationId,
+                watermark);
+            return (r.Activities, r.Watermark);
+        }
 
-        //public async Task SendMessageAsync(string conversationId, string message)
-        //{
-        //    await this.DirectLineClient.Conversations.PostActivityAsync(
-        //        conversationId,
-        //        new Activity
-        //        {
-        //            From = new ChannelAccount(BotUserName),
-        //            Text = message,
-        //            Type = ActivityTypes.Message,
-        //        });
-        //}
+        public async Task SendMessageAsync(string conversationId, string message)
+        {
+            await _directLineClient.Conversations.PostActivityAsync(
+                conversationId,
+                new Activity
+                {
+                    From = new ChannelAccount(BotUserName),
+                    Text = message,
+                    Type = ActivityTypes.Message,
+                });
+        }
 
-        //public async Task<string> StartConversationAsync()
-        //{
-        //    var conversation = await this.DirectLineClient.Conversations.StartConversationAsync();
-        //    return conversation.ConversationId;
-        //}
+        public async Task<string> StartConversationAsync()
+        {
+            var conversation = await _directLineClient.Conversations.StartConversationAsync();
+            return conversation.ConversationId;
+        }
     }
 }
