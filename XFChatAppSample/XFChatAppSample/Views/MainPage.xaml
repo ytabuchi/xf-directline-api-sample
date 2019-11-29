@@ -4,13 +4,154 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:local="clr-namespace:XFChatAppSample.Helpers"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Title="{Binding Title}"
              ios:Page.UseSafeArea="True"
              mc:Ignorable="d">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <!--  ToLocalTimeConverter  -->
+            <local:UtcToZonedDateTimeConverter x:Key="timeConverter" />
+            <!--  inputTemplate  -->
+            <DataTemplate x:Key="inputTemplate">
+                <ViewCell>
+                    <Grid Margin="120,5,10,5"
+                          ColumnSpacing="5"
+                          RowSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <BoxView Grid.Column="0"
+                                 Grid.Row="0"
+                                 BackgroundColor="#ddffdd"
+                                 CornerRadius="10" />
+                        <Label Grid.Column="0"
+                               Grid.Row="0"
+                               Padding="20"
+                               HorizontalOptions="End"
+                               VerticalOptions="Center"
+                               FontSize="Medium"
+                               Text="{Binding Activity.Text}" />
+                        <Label Grid.Column="0"
+                               Grid.Row="1"
+                               HorizontalOptions="End"
+                               FontSize="Micro"
+                               Text="{Binding Activity.Timestamp, StringFormat='{0:HH:mm}', Converter={StaticResource timeConverter}}"
+                               TextColor="Gray" />
+
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <!--  outputTemplate  -->
+            <DataTemplate x:Key="outputTemplate">
+                <ViewCell>
+                    <Grid Margin="10,5,60,5"
+                          ColumnSpacing="5"
+                          RowSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0"
+                               Grid.Row="0"
+                               Grid.RowSpan="2"
+                               WidthRequest="40"
+                               HeightRequest="40"
+                               Margin="10,5"
+                               VerticalOptions="Start"
+                               Source="{local:ImageResource Source='XFChatAppSample.Helpers.bot.png'}" />
+                        <BoxView Grid.Column="1"
+                                 Grid.Row="0"
+                                 BackgroundColor="#dddddd"
+                                 CornerRadius="10" />
+                        <Label Grid.Column="1"
+                               Grid.Row="0"
+                               Padding="20"
+                               HorizontalOptions="Start"
+                               VerticalOptions="Center"
+                               FontSize="Medium"
+                               Text="{Binding Activity.Text}" />
+                        <Label Grid.Column="1"
+                               Grid.Row="1"
+                               HorizontalOptions="Start"
+                               FontSize="Micro"
+                               Text="{Binding Activity.Timestamp, StringFormat='{0:HH:mm}', Converter={StaticResource timeConverter}}"
+                               TextColor="Gray" />
+
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <!--  CardTemplate  -->
+            <DataTemplate x:Key="cardTemplate">
+                <ViewCell>
+                    <Grid Margin="10,5,60,5"
+                          ColumnSpacing="5"
+                          RowSpacing="5"
+                          HorizontalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <BoxView Grid.Row="0"
+                                 Grid.RowSpan="3"
+                                 BackgroundColor="#dddddd"
+                                 CornerRadius="15" />
+                        <Label Grid.Row="0"
+                               Padding="20,20,0,5"
+                               HorizontalOptions="Start"
+                               FontSize="Large"
+                               Text="{Binding CardTitle}" />
+                        <Image Grid.Row="1"
+                               WidthRequest="80"
+                               HeightRequest="80"
+                               Margin="10,5"
+                               HorizontalOptions="End"
+                               Source="{Binding CardImage}" />
+                        <Label Grid.Row="2"
+                               Padding="20,0,0,20"
+                               HorizontalOptions="Start"
+                               FontSize="Medium"
+                               Text="{Binding CardText}" />
+
+                        <Label Grid.Row="3"
+                               HorizontalOptions="Start"
+                               FontSize="Micro"
+                               Text="{Binding Activity.Timestamp, StringFormat='{0:HH:mm}', Converter={StaticResource timeConverter}}"
+                               TextColor="Gray" />
+
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+            <!--  Selector指定  -->
+            <local:MessageTemplateSelector x:Key="messageTemplateSelector"
+                                           CardTemplate="{StaticResource cardTemplate}"
+                                           InputTemplate="{StaticResource inputTemplate}"
+                                           OutputTemplate="{StaticResource outputTemplate}" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <StackLayout>
-        <Label HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand"
-               Text="{Binding Message}" />
+        <ListView VerticalOptions="FillAndExpand"
+                  HasUnevenRows="True"
+                  ItemTemplate="{StaticResource messageTemplateSelector}"
+                  ItemsSource="{Binding Messages}"
+                  SelectionMode="None"
+                  SeparatorVisibility="None" />
+        <StackLayout Margin="15,5" Orientation="Horizontal">
+            <Entry HorizontalOptions="FillAndExpand" Text="{Binding InputMessage, Mode=TwoWay}" />
+            <Button Padding="10"
+                    Command="{Binding SendCommand}"
+                    Text="Send" />
+        </StackLayout>
     </StackLayout>
 </ContentPage>

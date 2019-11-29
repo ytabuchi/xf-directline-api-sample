@@ -7,6 +7,5 @@
                         xmlns:prism="clr-namespace:Prism.Unity;assembly=Prism.Unity.Forms"
                         mc:Ignorable="d">
     <Application.Resources>
-
     </Application.Resources>
 </prism:PrismApplication>
