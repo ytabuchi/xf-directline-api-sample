@@ -16,8 +16,14 @@
     <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Services\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    <None Remove="Helpers\bot.png" />
+    <None Remove="Helpers\avatar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Helpers\bot.png" />
+    <EmbeddedResource Include="Helpers\avatar.png" />
   </ItemGroup>
 </Project>
