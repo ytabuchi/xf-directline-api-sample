@@ -20,8 +20,9 @@ namespace XFChatAppSample
         {
             InitializeComponent();
 
-            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(Views.MainPage)}");
-            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(ManualConversationPage)}");
+            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(Views.MainPage)}");
+            // 手動で Azure Bot Service とやり取りするサンプルは以下を利用してください。
+            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(ManualConversationPage)}");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

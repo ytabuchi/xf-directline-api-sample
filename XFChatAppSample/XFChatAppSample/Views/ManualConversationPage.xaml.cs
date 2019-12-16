@@ -39,7 +39,7 @@ namespace XFChatAppSample.Views
 
                     ConversationIDLabel.Text = conversationId;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -71,11 +71,18 @@ namespace XFChatAppSample.Views
             {
                 // ConversationID を指定して、Activity（複数）を取得します。
                 var activities = await client.Conversations.GetActivitiesAsync(conversationId);
-                var result = activities.Activities.FirstOrDefault(x => x.ReplyToId == responseId);
+                var result = activities.Activities.LastOrDefault(x => x.ReplyToId == responseId);
 
+                ConversationLabel.Text = result.Text;
 
-            }
-                
+                // 取得できる Activity の確認用
+                var sb = new StringBuilder();
+                foreach (var item in activities.Activities)
+                {
+                    sb.Append($"Channel ID: {item.ChannelId}\nID: {item.Id}\nReplyToID: {item.ReplyToId}\nText: {item.Text}\n");
+                }
+                await DisplayAlert("Activities", sb.ToString(), "OK");
+            }   
         }
     }
 }

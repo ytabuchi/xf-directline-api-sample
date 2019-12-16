@@ -4,7 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             Title="Manual Bot Client">
     <ContentPage.Content>
         <StackLayout>
             <Button Clicked="StartActivity_Clicked" Text="会話開始" />
@@ -13,7 +14,7 @@
             <Button Clicked="PostActivity_Clicked" Text="Activity 送付（自身）" />
             <Label x:Name="ResponseIDLabel" Text="ResponseID" />
             <Button Clicked="GetActivity_Clicked" Text="Activity 取得（Bot）" />
-            <Label x:Name="ConversationLabel" Text="会話をここに表示" />
+            <Label x:Name="ConversationLabel" Text="会話をここに表示" LineBreakMode="WordWrap" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
