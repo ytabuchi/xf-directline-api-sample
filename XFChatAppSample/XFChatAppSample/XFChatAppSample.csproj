@@ -13,7 +13,6 @@
     <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.21" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Services\" />
     <Folder Include="Helpers\" />
@@ -21,9 +20,15 @@
   <ItemGroup>
     <None Remove="Helpers\bot.png" />
     <None Remove="Helpers\avatar.png" />
+    <None Remove="Secrets.cs~RF159b2c1a.TMP" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Helpers\bot.png" />
     <EmbeddedResource Include="Helpers\avatar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Views\ManualConversationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>

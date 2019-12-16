@@ -20,7 +20,8 @@ namespace XFChatAppSample
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(Views.MainPage)}");
+            //await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(Views.MainPage)}");
+            await NavigationService.NavigateAsync($"{nameof(NavigationPage)}/{nameof(ManualConversationPage)}");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -30,6 +31,7 @@ namespace XFChatAppSample
 
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<ManualConversationPage>();
         }
     }
 }

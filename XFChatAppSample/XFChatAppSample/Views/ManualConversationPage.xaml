@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="XFChatAppSample.Views.ManualConversationPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button Clicked="StartActivity_Clicked" Text="会話開始" />
+            <Label x:Name="ConversationIDLabel" Text="ConversationID" />
+            <Entry x:Name="InputText" />
+            <Button Clicked="PostActivity_Clicked" Text="Activity 送付（自身）" />
+            <Label x:Name="ResponseIDLabel" Text="ResponseID" />
+            <Button Clicked="GetActivity_Clicked" Text="Activity 取得（Bot）" />
+            <Label x:Name="ConversationLabel" Text="会話をここに表示" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
