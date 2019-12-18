@@ -18,6 +18,7 @@ namespace XFChatAppSample.Views
 
         string conversationId = "";
         string responseId = "";
+        string watermark = "";
 
         public ManualConversationPage()
         {
@@ -70,7 +71,9 @@ namespace XFChatAppSample.Views
             if (!string.IsNullOrEmpty(conversationId) && !string.IsNullOrEmpty(responseId))
             {
                 // ConversationID を指定して、Activity（複数）を取得します。
-                var activities = await client.Conversations.GetActivitiesAsync(conversationId);
+                // 毎回 ActivitySet の Watermark が更新されるのでそれを指定することで最新のやり取りを取得できます。
+                var activities = await client.Conversations.GetActivitiesAsync(conversationId, watermark);
+                watermark = activities.Watermark;
                 var result = activities.Activities.LastOrDefault(x => x.ReplyToId == responseId);
 
                 ConversationLabel.Text = result.Text;
