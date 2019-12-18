@@ -58,7 +58,7 @@ namespace XFChatAppSample.ViewModels
 
             ConversationId = await BotService.StartConversationAsync();
 
-            var ignore = this.StartGetMessagesLoopAsync(CancellationToken.None);
+            _ = this.StartGetMessagesLoopAsync(CancellationToken.None);
 
         }
 
